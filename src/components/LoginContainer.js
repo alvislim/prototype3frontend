@@ -42,10 +42,11 @@ class LoginContainer extends Component {
         try {
             console.log(response.profileObj)
             const data = response.profileObj
+            const token = response.tokenId
             const res = await axios.post("https://gaproject3backend.herokuapp.com/login/google", data, { withCredentials: true })
          
             if(res.data.success) {
-                sessionStorage.setItem("userData", JSON.stringify(data))
+                sessionStorage.setItem("userData", JSON.stringify(token))
                 this.props.history.push('/dashboard') 
             }
 

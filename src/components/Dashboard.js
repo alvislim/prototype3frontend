@@ -14,8 +14,9 @@ class Dashboard extends Component {
             const data = JSON.parse(sessionStorage.getItem('userData'));
             console.log(data)
             const response = await axios.get('https://gaproject3backend.herokuapp.com/user', { withCredentials: true })
+            const res = await axios.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${data}`)
             if(response.data) this.setState({name: response.data.name})
-            else if(data.googleId) this.setState({name: data.name})
+            else if(res.data.email) this.setState({name: res.data.name})
             else this.props.history.push('/login') 
         } catch (err) {
             console.log(err.response)
